@@ -5,6 +5,8 @@ import sys
 serverName = '127.0.0.1'
 serverPort = 12000
 
+running = True
+
 def receive_message(clientSocket):
     while True:
         try:
