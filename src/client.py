@@ -11,6 +11,6 @@ sentence = input('Digite uma frase com letras minúsculas: ')
 clientSocket.send(sentence.encode())
 modifiedSentence = clientSocket.recv(1024).decode()
 
-print('Do Servidor: modifiedSentence')
+print('Do Servidor:' modifiedSentence)
 
 clientSocket.close()
