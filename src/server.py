@@ -10,6 +10,7 @@ while True:
     connectionSocket, addr = serverSocket.accept()
 
     sentence = connectionSocket.recv(1024).decode()
+    print(f'[RECEBIDO de {addr}]: {sentence}')
 
     capitalizedSentence = sentence.upper()
 
