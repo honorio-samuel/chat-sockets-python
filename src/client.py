@@ -31,9 +31,15 @@ receive_thread = threading.Thread(target=receive_message, args=(clientSocket,))
 receive_thread.daemon = True
 receive_thread.start()
 
-clientSocket.send(sentence.encode())
-modifiedSentence = clientSocket.recv(1024).decode()
-
-print('Do Servidor:', modifiedSentence)
+while True:
+    try:
+        msg = input()
+        if msg.lower() == '/sair':
+            break
+        if msg.strip():
+            clientSocket.send(f"{msg}\n".encode('utf-8'))
+    except (KeyboardInterrupt, EOFError):
+        break
 
 clientSocket.close()
+print("Você saiu do chat.")
