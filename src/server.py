@@ -50,6 +50,7 @@ def handle_client(connectionSocket, addr):
     leave_msg = f"📢 [SERVIDOR]: O participante {client_id} saiu do chat!\n"
     broadcast(leave_msg.encode('utf-8'))
 
+print('\n=== SERVIDOR DE CHAT ATIVO ===\n')
 while True:
     connectionSocket, addr = serverSocket.accept()
     clients.append(connectionSocket)
