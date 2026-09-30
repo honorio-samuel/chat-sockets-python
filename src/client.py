@@ -36,11 +36,13 @@ receive_thread.start()
 while True:
     try:
         msg = input()
-        if msg.lower() == '/sair':
+        if msg.lower().strip() == '/sair':
+            running = False
             break
         if msg.strip():
             clientSocket.send(f"{msg}\n".encode('utf-8'))
     except (KeyboardInterrupt, EOFError):
+        running = False
         break
 
 clientSocket.close()
