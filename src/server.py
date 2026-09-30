@@ -51,7 +51,9 @@ def handle_client(connectionSocket, addr):
 
 while True:
     connectionSocket, addr = serverSocket.accept()
+    clients.append(connectionSocket)
 
     thread = threading.Thread(target=handle_client, args=(connectionSocket, addr))
     thread.daemon = True
     thread.start()
+    
