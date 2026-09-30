@@ -27,7 +27,7 @@ def remove_client(client_socket):
 
 def handle_client(connectionSocket, addr):
     client_id = f"{addr[0]}:{addr[1]}"
-    print(f"[ENTRADA] Participante {client_id} entrou no chat.")
+    print(f"[ENTRADA] Participante {client_id} entrou no chat.\n")
 
     join_msg = f"📢 [SERVIDOR]: O participante {client_id} entrou no chat!\n"
     broadcast(join_msg.encode('utf-8'), connectionSocket)
