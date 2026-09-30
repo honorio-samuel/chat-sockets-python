@@ -37,9 +37,10 @@ def handle_client(connectionSocket, addr):
             message = connectionSocket.recv(1024)
             if not message:
                 break
-            print(f"[{client_id}]: {message.decode('utf-8')}")
-            formatedmessage = f"[{client_id}]: {message.decode('utf-8')}\n"
-            broadcast(formatedmessage.encode('utf-8'), connectionSocket)
+            text = message.decode('utf-8').strip()
+            if text:
+                formatted_msg = f"[{client_id}]: {text}\n"
+            broadcast(formatted_msg.encode('utf-8'), connectionSocket)
         except:
             break
 
