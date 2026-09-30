@@ -32,20 +32,22 @@ def handle_client(connectionSocket, addr):
     join_msg = f"📢 [SERVIDOR]: O participante {client_id} entrou no chat!\n"
     broadcast(join_msg.encode('utf-8'), connectionSocket)
 
+    while True:
+        try:
+            message = connectionSocket.recv(1024)
+            if not message:
+                break
+            print(f"[{client_id}]: {message.decode('utf-8')}")
+            formatedmessage = f"[{client_id}]: {message.decode('utf-8')}\n"
+            broadcast(formatedmessage.encode('utf-8'), connectionSocket)
+        except:
+            break
+
+    print(f"[SAÍDA] Participante {client_id} saiu do chat.")
+    remove_client(connectionSocket)
     
-    try:
-        sentence = connectionSocket.recv(1024).decode()
-        if sentence:
-            print(f"[RECEBIDO de {addr}]: {sentence}")
-
-            capitalizedSentence = sentence.upper()
-            connectionSocket.send(capitalizedSentence.encode())
-    except Exception as e:
-        print(f"[ERRO cliente {addr}]: {e}")
-    finally:
-        connectionSocket.close()
-        print(f"[DESCONECTADO] Cliente {addr} desconectado.")
-
+    leave_msg = f"📢 [SERVIDOR]: O participante {client_id} saiu do chat!\n"
+    broadcast(leave_msg.encode('utf-8'))
 
 while True:
     connectionSocket, addr = serverSocket.accept()
