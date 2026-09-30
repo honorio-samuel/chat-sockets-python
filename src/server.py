@@ -5,8 +5,25 @@ serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)   
 serverSocket.bind(('', serverPort))
-serverSocket.listen(1)
-print('O servidor multithread esta pronto para receber conexoes...')
+serverSocket.listen()
+
+clients = []
+
+def broadcast(message, sender_socket=None):
+    for client in clients:
+        if client != sender_socket:
+            try:
+                client.send(message)
+            except:
+                remove_client(client)
+
+def remove_client(client_socket):
+    if client_socket in clients:
+        clients.remove(client_socket)
+        try:
+            client_socket.close()
+        except:
+            pass
 
 def handle_client(connectionSocket, addr):
     print(f"[NOVACONEXÃO] Cliente {addr} conectado.")
