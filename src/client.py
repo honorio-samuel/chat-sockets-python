@@ -27,7 +27,9 @@ except Exception as e:
     print(f'[ERRO] Não foi possível conectar ao servidor: {e}')
     sys.exit()
     
-sentence = input('Digite uma frase com letras minúsculas: ')
+receive_thread = threading.Thread(target=receive_message, args=(clientSocket,))
+receive_thread.daemon = True
+receive_thread.start()
 
 clientSocket.send(sentence.encode())
 modifiedSentence = clientSocket.recv(1024).decode()
