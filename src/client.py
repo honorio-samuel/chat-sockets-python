@@ -1,4 +1,6 @@
 from socket import *
+import threading
+import sys
 
 serverName = '127.0.0.1'
 serverPort = 12000
@@ -24,7 +26,7 @@ try:
 except Exception as e:
     print(f'[ERRO] Não foi possível conectar ao servidor: {e}')
     sys.exit()
-
+    
 sentence = input('Digite uma frase com letras minúsculas: ')
 
 clientSocket.send(sentence.encode())
