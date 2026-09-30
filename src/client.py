@@ -16,7 +16,14 @@ def receive_message(clientSocket):
             break
 
 clientSocket =  socket(AF_INET, SOCK_STREAM)
-clientSocket.connect((serverName, serverPort))
+
+try:
+    clientSocket.connect((serverName, serverPort))
+    print(f"BEM-VINDO(A) AO CHAT!")
+    print(f"Digite as suas mensagens (ou '/sair' para fechar):\n")
+except Exception as e:
+    print(f'[ERRO] Não foi possível conectar ao servidor: {e}')
+    sys.exit()
 
 sentence = input('Digite uma frase com letras minúsculas: ')
 
