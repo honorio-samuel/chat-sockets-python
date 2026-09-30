@@ -8,15 +8,18 @@ serverPort = 12000
 running = True
 
 def receive_message(clientSocket):
-    while True:
+    global running
+    while running:
         try:
             message = clientSocket.recv(1024).decode('utf-8')
             if not message:
-                print("[DESCONECTADO] Servidor encerrou a conexão.")
+                if running:
+                    print("[DESCONECTADO] Servidor encerrou a conexão.")
                 break
             print(message, end='', flush=True)
         except:
-            print("[ERRO] Conexão perdida com o servidor.")
+            if running:
+                print("[ERRO] Conexão perdida com o servidor.")
             break
 
 clientSocket =  socket(AF_INET, SOCK_STREAM)
