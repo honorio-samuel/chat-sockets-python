@@ -14,7 +14,7 @@ def receive_message(clientSocket):
             if not message:
                 print("[DESCONECTADO] Servidor encerrou a conexão.")
                 break
-            print(message, end='')
+            print(message, end='', flush=True)
         except:
             print("[ERRO] Conexão perdida com o servidor.")
             break
